@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import logo from "../Assets/logo/logo.svg";
-import profile from "../Assets/logo/profile.svg";
-import saldo from "../Assets/logo/saldo.svg";
+import Header from './Header'; // Pastikan jalur ini sesuai dengan struktur folder Anda
 
 function PaymentDetails() {
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
+  // Data dummy
+  const paymentData = {
+    providerName: "Nusantara Jaya Ekonomi",
+    location: "Balikpapan - IKN",
+    passengers: "2 Dewasa, 1 Anak-anak",
+    totalAmount: "Rp 360.000,00"
+  };
+
   const handlePayment = () => {
-    // Set visibilitas pop-up pembayaran berhasil
     setIsPaymentSuccessful(true);
   };
 
@@ -16,68 +21,56 @@ function PaymentDetails() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-gray-100 min-h-screen">
-      <header className="flex items-center justify-between h-[110px] w-full bg-[#55AD9B] text-white p-4 rounded-lg">
-        <div className="flex items-center space-x-3">
-          <img src={logo} alt="Logo" className="h-10 w-10" />
-          <h1 className="font-poppins text-xl font-semibold">CHU CHU RAWR</h1>
-        </div>
-        <nav className="flex items-center space-x-5">
-          <span>Kontak</span>
-          <span>IDR ▼</span>
-          <span>Bahasa ▼</span>
-          <img
-            className="rounded-full bg-white text-black p-2"
-            alt="profile"
-            src={profile}
-          />
-        </nav>
-      </header>
+    <div className="flex flex-col items-center bg-white min-h-screen font-poppins">
+      <Header />
 
-      <h2 className="text-center text-2xl font-semibold text-gray-800 bg-[#95D2B3] py-2 px-4 w-full max-w-lg mt-7">
-        Detail Pembayaran
-      </h2>
+      <div className="relative w-[1129px] mt-24">
+        <h2 className="absolute text-center text-3xl font-bold text-black bg-[#95D2B3] w-[1129px] h-[82px] top-[-30px] pt-6 rounded-lg">
+          Detail Pembayaran
+        </h2>
 
-      <div className="w-full max-w-lg bg-[#D3E9D7] p-6 shadow-lg rounded-lg">
-        <div className="pb-4 border-b border-gray-300">
-          <p className="text-lg font-semibold text-gray-800">Nusantara Jaya Ekonomi</p>
-        </div>
-        <div className="pt-2 pb-4 border-b border-gray-300">
-          <p className="text-sm text-gray-600">
-            Balikpapan - IKN<br />2 Dewasa, 1 Anak-anak
-          </p>
-        </div>
-        <div className="flex justify-between font-semibold text-gray-800 py-2 border-b border-gray-300">
-          <span>Total</span>
-          <span>Rp 360.000,00</span>
-        </div>
-        
-        <div className="flex justify-between items-center font-semibold text-gray-800 py-2 border-b border-gray-300">
-          <span>Saldo</span>
-          <button className="flex items-center space-x-2 bg-[#7AC2B4] text-white px-3 py-1 rounded-full">
-            <img src={saldo} alt="saldo" className="h-5 w-5" />
+        <div className="w-[1129px] h-[720px] bg-[#D8EFD3] p-12 shadow-lg rounded-lg"> {/* Padding ditambah menjadi p-8 */}
+          <div className="pb-4 border-b border-black">
+            <p className="text-2xl text-black mb-2 mt-24 leading-10">{paymentData.providerName}</p>
+          </div>
+          <div className="flex justify-between items-center pt-2 pb-4 mt-10 border-b border-black">
+            <div className="text-2xl text-black leading-10">
+              <p className="mb-1">{paymentData.location}</p>
+              <p className="mb-1">{paymentData.passengers}</p>
+            </div>
+            <span className="text-2xl font-semibold text-black leading-10">{paymentData.totalAmount}</span>
+          </div>
+
+          <div className="flex justify-between text-2xl font-semibold text-black py-2 mt-10 border-b border-black leading-10">
+            <span>Total</span>
+            <span>{paymentData.totalAmount}</span>
+          </div>
+          
+          <div className="flex justify-between text-2xl items-center font-semibold text-black py-2 mt-10 border-b border-black leading-10">
             <span>Saldo</span>
+            <button className="flex items-center space-x-2 bg-[#7AC2B4] text-white px-3 py-1 rounded-full w-[189px] h-[36px] border border-black">
+              <img src={`${process.env.PUBLIC_URL}/images/saldo.png`} alt="saldo" className="w-8 h-8" />
+              <span>Saldo</span>
+            </button>
+          </div>
+
+          <button
+            className="flex items-center justify-center text-2xl space-x-2 bg-[#7AC2B4] text-white px-12 py-2 rounded-full w-[189px] h-[36px] mt-12 ml-auto border border-black"
+            onClick={handlePayment}
+          >
+            Bayar
           </button>
         </div>
-
-        <button
-          className="flex items-center justify-center space-x-2 bg-[#7AC2B4] text-white px-3 py-1 rounded-full hover:bg-[#6AB09E] ml-auto"
-          onClick={handlePayment}
-        >
-          Bayar
-        </button>
       </div>
 
       {isPaymentSuccessful && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#95D2B3] p-6 rounded-lg text-center max-w-sm w-full shadow-lg">
-            <h3 className="text-2xl font-semibold text-black">Berhasil</h3>
+          <div className="bg-[#95D2B3] p-8 rounded-lg text-center max-w-sm w-[600px] h-[350px] shadow-lg">
+            <h3 className="text-2xl font-semibold text-black leading-10">Berhasil</h3>
             <div className="flex justify-center mt-4">
-              <div className="bg-[#55AD9B] rounded-full h-16 w-16 flex items-center justify-center">
-                <span className="text-white text-4xl">✓</span>
-              </div>
+              <img src={`${process.env.PUBLIC_URL}/images/berhasil.png`} alt="Berhasil" className="h-24 w-24" />
             </div>
-            <p className="mt-4 text-lg text-black">Pembayaran Berhasil</p>
+            <p className="mt-4 text-lg text-black leading-10">Pembayaran Berhasil</p>
             <button
               className="mt-6 bg-white text-black font-semibold py-2 px-4 rounded-lg"
               onClick={closePopup}
