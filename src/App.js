@@ -1,10 +1,15 @@
-import logo from './logo.svg';
-import LandingPage from './components/LandingPage'
+// src/App.js
+import React from 'react';
+// import LandingPage from './LandingPage';
+import PaymentDetails from './components/PaymentDetails';
+// import PesanTiket from './components/PesanTiket';
 
 function App() {
   return (
-    <div className="App">
-      <LandingPage/>
+    <div>
+      {/* <LandingPage /> */}
+      <PaymentDetails />
+      {/* <PesanTiket /> */}
     </div>
   );
 }
