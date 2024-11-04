@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 
-function App () {
-    return (
-        <div className="App">
-            <Header />
-        </div>
-    )
-}
-
 const Dashboard = () => {
   const [tripType, setTripType] = useState('one-way');
   const [adults, setAdults] = useState(1);
@@ -47,6 +39,8 @@ const Dashboard = () => {
   }, []);
 
   return ( 
+    <div className="App">
+      <Header />
     <div className="flex justify-center item-center min-h-screen bg-gray-100">
         <div className="bg-[#D8EFD3] p-6 rounded-[25px] px-8 py-6 mx-auto"
             style={{
@@ -241,6 +235,7 @@ const Dashboard = () => {
           </a>
           </div>
         </div>
+    </div>
     </div>
   );
 };

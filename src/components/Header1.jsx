@@ -15,9 +15,7 @@ function Header() {
       </div>
 
       <nav className="flex items-center space-x-4 pr-4">
-        <a href="#contact" className="hover:underline mr-4">Kontak</a>
-        
-        <div className="relative">
+        <div className="relative mr-8">
           <a 
             href="#profile" 
             className="cursor-pointer" 

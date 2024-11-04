@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,7 +15,7 @@ function Header() {
       </div>
 
       <nav className="flex items-center space-x-4">
-        <div className="relative">
+        <div className="relative mr-4">
           <div className="flex items-center cursor-pointer" onClick={handleDropdownToggle}>
             <span className="hover:underline">Masuk</span>
             <img 
@@ -28,20 +27,20 @@ function Header() {
           
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 w-32 bg-white text-gray-800 rounded shadow-lg">
-              <Link
-                href="/Login" 
+              <a
+                href="/pencarian" 
                 className="block px-4 py-2 hover:bg-gray-200 hover:text-teal-600 transition duration-200"
                 onClick={() => setIsDropdownOpen(false)} // Tutup dropdown setelah mengklik
               >
                 Masuk
-              </Link>
-              <Link 
+              </a>
+              <a
                 href="/Register" 
                 className="block px-4 py-2 hover:bg-gray-200 hover:text-teal-600 transition duration-200"
                 onClick={() => setIsDropdownOpen(false)} // Tutup dropdown setelah mengklik
               >
                 Daftar
-              </Link>
+              </a>
             </div>
           )}
         </div>
