@@ -9,7 +9,6 @@ function App() {
     <div className="App">
       <Header />
       <HeroSection />
-      <Headers />
       <PopularRoutes />
       <Features />
       <Testimonials />
@@ -91,7 +90,12 @@ const FeatureCard = ({ title, image, imageSize }) => (
   </div>
 );
 
-
+<header
+      className="bg-green-custom p-4 flex justify-between items-center text-white"
+      style={{ width: '1440px', height: '80px' }}
+    >
+      {/* Your content goes here */}
+    </header>
 // PopularRoutes Component
 function PopularRoutes() {
   return (
