@@ -1,7 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Header from './Header';
+import { MdOutlineTrain, MdPermContactCalendar, MdDateRange } from "react-icons/md";
+import { FaPerson } from "react-icons/fa6";
 
 function PesanTiket() {
+  const navigate = useNavigate();
+
   const passengerData = {
     name: "Ahmad Fakhrurrozi",
     travelDate: "Senin, 14 Oktober 2024",
@@ -15,68 +20,66 @@ function PesanTiket() {
   };
 
   const handleBooking = () => {
-    // Navigasi ke bagian pembayaran bisa ditambahkan di sini nanti
-    console.log('Tiket dipesan, lanjut ke pembayaran...');
+    // Navigasi ke halaman test-payment
+    navigate('/test-payment');
   };
 
   return (
     <div className="flex flex-col items-center bg-white min-h-screen font-poppins">
       <Header />
 
-      <div className="w-[1129px] h-[700px] bg-[#D8EFD3] p-12 shadow-lg rounded-lg mt-24 relative">
-        <h2 className="text-3xl font-bold text-black mb-8">Detail Tiket Kereta Api</h2>
+      <div className="w-full max-w-3xl bg-[#D8EFD3] p-8 shadow-lg rounded-lg mt-8 sm:mt-12 relative">
+        <h2 className="text-xl sm:xl font-bold text-black mb-4">Detail Tiket Kereta Api</h2>
 
         {/* Bagian kanan atas untuk nama dan tanggal */}
-        <div className="absolute top-8 pt-6 right-12 text-right font-semibold">
-          <p className="text-2xl font-bold text-black">{passengerData.name}</p>
-          <div className="mt-3 flex items-center justify-end text-lg text-black">
-            <div className="mr-4 pt-8">
+        <div className="absolute top-4 right-4 p-4 text-center font-semibold">
+          <p className="text-sm sm:text-base font-bold text-black">{passengerData.name}</p>
+          <div className="flex items-center p-4 text-xs sm:text-sm text-black mt-2">
+            <div className="mr-2">
               {passengerData.travelDate}<br />
               {passengerData.travelTime}
             </div>
-            <div className="pt-8 flex items-center">
-              <img src={`${process.env.PUBLIC_URL}/images/kalender.png`} alt="kalender" className="w-12 h-12" />
-            </div>
+            <MdDateRange className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         </div>
 
-        <div className="mt-10">
-          <div className="mb-6">
-            <p className="text-2xl font-bold text-black">Rute Kereta Api</p>
+        <div className="mt-4">
+          <div className="mb-3">
+            <p className="text-sm sm:text-base font-bold text-black">Rute Kereta Api</p>
             <div className="flex items-center">
-              <img src={`${process.env.PUBLIC_URL}/images/kereta3.png`} alt="Kereta" className="w-8 h-8 mr-2" />
-              <p className="text-lg text-black">{passengerData.route}</p>
+              <MdOutlineTrain className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <p className="text-xs sm:text-sm text-black">{passengerData.route}</p>
             </div>
           </div>
-          <div className="mb-6">
-            <p className="text-2xl font-bold text-black">Penumpang</p>
+          <div className="mb-3">
+            <p className="text-sm sm:text-base font-bold text-black">Penumpang</p>
             <div className="flex items-center">
-              <img src={`${process.env.PUBLIC_URL}/images/penumpang.png`} alt="Penumpang" className="w-8 h-8 mr-2" />
-              <span className="text-lg text-black">
+              <FaPerson className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <span className="text-xs sm:text-sm text-black">
                 Dewasa - {passengerData.adults} orang<br />
                 Anak-anak - {passengerData.children} orang
               </span>
             </div>
           </div>
-          <div className="mb-6">
-            <p className="text-2xl font-bold text-black">Kontak</p>
+          <div className="mb-3">
+            <p className="text-sm sm:text-base font-bold text-black">Kontak</p>
             <div className="flex items-center">
-              <img src={`${process.env.PUBLIC_URL}/images/kontak.png`} alt="Kontak" className="w-8 h-8 mr-2" />
-              <p className="text-lg text-black">{passengerData.contact}</p>
+              <MdPermContactCalendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <p className="text-xs sm:text-sm text-black">{passengerData.contact}</p>
             </div>
           </div>
           <div>
-            <p className="text-2xl font-bold text-black">Kereta Api - Harga</p>
-            <div className="flex items-center mt-6">
-              <img src={`${process.env.PUBLIC_URL}/images/kereta3.png`} alt="Kereta" className="w-8 h-8 mr-2" />
-              <p className="text-lg text-black">{passengerData.trainName} - {passengerData.price}</p>
+            <p className="text-sm sm:text-base font-bold text-black">Kereta Api - Harga</p>
+            <div className="flex items-center mt-2">
+              <MdOutlineTrain className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <p className="text-xs sm:text-sm text-black">{passengerData.trainName} - {passengerData.price}</p>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-end mt-10">
+        <div className="flex justify-end mt-6">
           <button
-            className="bg-[#55AD9B] text-white text-xl px-12 py-2 rounded-full border-2 border-black hover:bg-[#55AD9B]"
+            className="bg-[#55AD9B] text-white text-xs sm:text-sm px-4 py-2 rounded-full border border-black hover:bg-[#55AD9B]"
             onClick={handleBooking}
           >
             Pesan
