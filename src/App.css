@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .App {
   text-align: center;
 }
@@ -5,15 +6,29 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+=======
+/* App Styles */
+.App {
+  @apply text-center;
+}
+
+.App-logo {
+  @apply h-[40vmin] pointer-events-none;
+>>>>>>> 4cbd069 (routing)
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
+<<<<<<< HEAD
     animation: App-logo-spin infinite 20s linear;
+=======
+    @apply animate-[spin_20s_linear_infinite];
+>>>>>>> 4cbd069 (routing)
   }
 }
 
 .App-header {
+<<<<<<< HEAD
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -26,6 +41,14 @@
 
 .App-link {
   color: #61dafb;
+=======
+  @apply bg-[#282c34] min-h-screen flex flex-col items-center justify-center text-white;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  @apply text-[#61dafb];
+>>>>>>> 4cbd069 (routing)
 }
 
 @keyframes App-logo-spin {
@@ -36,3 +59,84 @@
     transform: rotate(360deg);
   }
 }
+<<<<<<< HEAD
+=======
+
+/* Ticket Styles */
+.ticket {
+  @apply w-full max-w-[600px] mx-auto border border-gray-300 rounded-lg bg-light-green p-4;
+}
+
+.ticket-header {
+  @apply text-center border-b border-gray-300 pb-4 mb-4;
+}
+
+.ticket-logo {
+  @apply w-[80px] h-auto mb-2;
+}
+
+.ticket-body {
+  @apply text-sm;
+}
+
+.train-info {
+  @apply mb-4;
+}
+
+.train-info h2 {
+  @apply text-xl m-0;
+}
+
+.train-info .economy-class {
+  @apply text-gray-500 mt-1 mb-4;
+}
+
+.train-timing {
+  @apply flex justify-between mb-2;
+}
+
+.train-timing div {
+  @apply text-center;
+}
+
+.stations {
+  @apply flex justify-between text-sm text-gray-700;
+}
+
+.booking-info {
+  @apply mb-4;
+}
+
+.booking-code {
+  @apply border-dashed border-gray-300 p-4 mb-4 text-center;
+}
+
+.booking-code h3 {
+  @apply my-2 text-base text-gray-700;
+}
+
+.important-info ul {
+  @apply list-none p-0 m-0;
+}
+
+.important-info ul li {
+  @apply mb-2;
+}
+
+.passenger-info table {
+  @apply w-full border-collapse text-xs;
+}
+
+.passenger-info th,
+.passenger-info td {
+  @apply border border-gray-300 p-2 text-center;
+}
+
+.passenger-info th {
+  @apply bg-gray-200;
+}
+
+.passenger-info td {
+  @apply bg-white;
+}
+>>>>>>> 4cbd069 (routing)
