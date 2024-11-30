@@ -1,9 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-<<<<<<< HEAD
-    extend: {},
-=======
     extend: {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
@@ -16,7 +13,6 @@ module.exports = {
         'green': '#55AD9B'
       },
     },
->>>>>>> 4cbd069 (routing)
   },
   plugins: [],
 };
