@@ -40,8 +40,11 @@ function Header() {
           <Link to="/" className="text-[20px] hover:underline">
             Home
           </Link>
-          <Link to="/" className="text-[20px] hover:underline">
+          <Link to="/Login" className="text-[20px] hover:underline">
             Logout
+          </Link>
+          <Link to="/profil2" className="text-[20px] hover:underline">
+            Riwayat
           </Link>
           <div className="relative">
             <button
@@ -75,18 +78,16 @@ function Header() {
       {/* Header untuk Halaman Selain Landing Page */}
       {location.pathname !== '/' && (
         <nav className="font-poppins flex items-center space-x-4 ml-auto">
-          <Link to="/" className="text-[20px] hover:underline">
+          {/* <Link to="/" className="text-[20px] hover:underline">
             Home
-          </Link>
+          </Link> */}
           
-          {isLoggedIn && (
-            <button
-              onClick={handleLogout}
-              className="text-[20px] hover:underline"
-            >
-              Logout
-            </button>
-          )}
+          <Link to="/Login" className="text-[20px] hover:underline">
+            Logout
+          </Link>
+          <Link to="/profil2" className="text-[20px] hover:underline">
+            Riwayat
+          </Link>
           <Link to="/profil1">
             <img
               src="/images/profile.png"
