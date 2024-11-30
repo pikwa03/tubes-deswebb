@@ -1,18 +1,8 @@
-<<<<<<< HEAD
-import logo from './logo.svg';
-import LandingPage from './components/LandingPage'
-
-function App() {
-  return (
-    <div className="App">
-      <LandingPage/>
-    </div>
-=======
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
-import Dashboard1 from './components/Dashboard1';
+// import Dashboard1 from './components/Dashboard1';
 import Login from './components/Login';
 import Register from './components/Register';
 import PaymentDetails from './components/PaymentDetails';
@@ -45,7 +35,6 @@ function App() {
         {/* <Tiket/> */}
       </div>
     </Router>
->>>>>>> 4cbd069 (routing)
   );
 }
 
