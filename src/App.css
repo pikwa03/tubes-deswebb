@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-=======
 /* App Styles */
 .App {
   @apply text-center;
@@ -14,41 +5,21 @@
 
 .App-logo {
   @apply h-[40vmin] pointer-events-none;
->>>>>>> 4cbd069 (routing)
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-<<<<<<< HEAD
-    animation: App-logo-spin infinite 20s linear;
-=======
     @apply animate-[spin_20s_linear_infinite];
->>>>>>> 4cbd069 (routing)
   }
 }
 
 .App-header {
-<<<<<<< HEAD
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-=======
   @apply bg-[#282c34] min-h-screen flex flex-col items-center justify-center text-white;
   font-size: calc(10px + 2vmin);
 }
 
 .App-link {
   @apply text-[#61dafb];
->>>>>>> 4cbd069 (routing)
 }
 
 @keyframes App-logo-spin {
@@ -59,8 +30,6 @@
     transform: rotate(360deg);
   }
 }
-<<<<<<< HEAD
-=======
 
 /* Ticket Styles */
 .ticket {
@@ -139,4 +108,3 @@
 .passenger-info td {
   @apply bg-white;
 }
->>>>>>> 4cbd069 (routing)
