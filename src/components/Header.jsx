@@ -4,12 +4,22 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileImage, setProfileImage] = useState(null); // State untuk gambar profil
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Cek status login
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedInStatus);
+
+    // Ambil gambar profil dari localStorage
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    if (storedData && storedData.profileImage) {
+      setProfileImage(storedData.profileImage);
+    } else {
+      setProfileImage('/images/profile.png'); // Gambar default
+    }
   }, []);
 
   const handleDropdownToggle = () => {
@@ -39,9 +49,6 @@ function Header() {
         <nav className="font-poppins flex items-center space-x-4 ml-auto">
           <Link to="/" className="text-[20px] hover:underline">
             Home
-          </Link>
-          <Link to="/Login" className="text-[20px] hover:underline">
-            Logout
           </Link>
           <Link to="/profil2" className="text-[20px] hover:underline">
             Riwayat
@@ -78,19 +85,23 @@ function Header() {
       {/* Header untuk Halaman Selain Landing Page */}
       {location.pathname !== '/' && (
         <nav className="font-poppins flex items-center space-x-4 ml-auto">
-          {/* <Link to="/" className="text-[20px] hover:underline">
+          <Link to="/" className="text-[20px] hover:underline">
             Home
-          </Link> */}
-          
-          <Link to="/Login" className="text-[20px] hover:underline">
-            Logout
           </Link>
+          {isLoggedIn && (
+            <button
+              onClick={handleLogout}
+              className="text-[20px] hover:underline"
+            >
+              Logout
+            </button>
+          )}
           <Link to="/profil2" className="text-[20px] hover:underline">
             Riwayat
           </Link>
           <Link to="/profil1">
             <img
-              src="/images/profile.png"
+              src={profileImage} // Gunakan gambar profil dari state
               alt="Profile"
               className="w-10 h-10 rounded-full cursor-pointer"
             />
