@@ -1,65 +1,118 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Impor Link
-import Header from './Header';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Header from "./Header";
+import { FaPlusCircle } from "react-icons/fa";
+import { GiWallet } from "react-icons/gi";
 
 export default function ProfilePage() {
   const [formData, setFormData] = useState({
-    firstName: 'Dila',
-    lastName: 'Ayu',
-    email: 'dilla@gmail.com',
-    password: '***************',
+    firstName: "Dila",
+    lastName: "Ayu",
+    email: "dilla@gmail.com",
+    password: "***************",
   });
 
-  const [isEditing, setIsEditing] = useState(false); // State untuk mode edit
+  const [profileImage, setProfileImage] = useState("/images/Profil1.png");
+  const [saldo, setSaldo] = useState(0); // Saldo awal
+  const [isAdding, setIsAdding] = useState(false); // State untuk menampilkan input saldo baru
+  const [inputSaldo, setInputSaldo] = useState(""); // State untuk nilai input saldo baru
+  const [history, setHistory] = useState([ // Histori transaksi awal
+    {
+      saldoAwal: 0,
+      biaya: 0,
+      saldoAkhir: 0,
+    },
+  ]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  useEffect(() => {
+    // Ambil data user dari localStorage berdasarkan akun yang sedang aktif
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData) {
+      setProfileImage(storedData.profileImage || "/images/Profil1.png");
+      setFormData(storedData);
+    }
 
-  // Fungsi konfirmasi penghapusan akun
+    // Ambil saldo dan history dari localStorage berdasarkan ID pengguna
+    const userId = storedData ? storedData.email : null; // Asumsikan email sebagai ID unik
+    if (userId) {
+      const storedSaldo = parseInt(localStorage.getItem(`${userId}_saldo`));
+      const storedHistory = JSON.parse(localStorage.getItem(`${userId}_history`));
+
+      if (storedSaldo) {
+        setSaldo(storedSaldo); // Set saldo dari localStorage
+      }
+
+      if (storedHistory) {
+        setHistory(storedHistory); // Set history dari localStorage
+      }
+    }
+  }, []);
+
   const handleDeleteAccount = () => {
     const confirmed = window.confirm("Apakah Anda yakin ingin menghapus akun?");
     if (confirmed) {
-      alert("Akun berhasil dihapus."); // Ganti dengan logika penghapusan sesuai kebutuhan
+      localStorage.removeItem("userData");
+      const userId = formData.email;
+      localStorage.removeItem(`${userId}_saldo`);
+      localStorage.removeItem(`${userId}_history`);
+      alert("Akun berhasil dihapus.");
     }
   };
 
-  // Fungsi konfirmasi penyimpanan perubahan
-  const handleSaveChanges = () => {
-    const confirmed = window.confirm("Apakah Anda yakin ingin menyimpan perubahan?");
-    if (confirmed) {
-      alert("Perubahan berhasil disimpan."); // Ganti dengan logika penyimpanan sesuai kebutuhan
-      setIsEditing(false); // Matikan mode edit setelah menyimpan
-    }
+  const handleAddSaldoClick = () => {
+    setIsAdding(true); // Menampilkan input saldo baru
   };
 
-  // Fungsi untuk mengaktifkan mode edit
-  const handleEditClick = () => {
-    setIsEditing(true);
+  const handleSaveSaldo = () => {
+    const nominal = parseInt(inputSaldo);
+    if (!isNaN(nominal) && nominal > 0) {
+      const newSaldo = saldo + nominal;
+      const newHistory = {
+        saldoAwal: saldo,
+        biaya: nominal,
+        saldoAkhir: newSaldo,
+      };
+      
+      // Simpan saldo dan history ke localStorage dengan ID pengguna
+      const userId = formData.email; // Ambil ID pengguna (email)
+      localStorage.setItem(`${userId}_saldo`, newSaldo);
+      localStorage.setItem(`${userId}_history`, JSON.stringify([newHistory, ...history]));
+      
+      setSaldo(newSaldo); // Perbarui saldo
+      setHistory([newHistory, ...history]); // Tambahkan transaksi ke histori
+      setInputSaldo(""); // Kosongkan input
+      setIsAdding(false); // Sembunyikan input setelah disimpan
+    } else {
+      alert("Masukkan nominal yang valid!");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Memanggil Header */}
       <Header />
-
-      {/* Main Content */}
       <div className="flex flex-1">
         {/* Sidebar */}
         <aside className="bg-light-green w-[375px] h-[914px] p-8 relative">
           <div className="text-center mt-20">
-            <img 
-                src="images/Profil.png"
-                alt="Poto Profil"
-                className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center"
+            <img
+              src={profileImage || "/images/Profil.png"}
+              alt="Poto Profil"
+              className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center"
             />
-            <h2 className="font-bold font-poppins text-[30px] mb-20 mt-10">Dilla Ayu Puspitasari</h2>
+            <h2 className="font-bold font-poppins text-[30px] mb-20 mt-10">
+              {formData.firstName} {formData.lastName}
+            </h2>
           </div>
           <nav className="text-black font-poppins font-medium text-[25px] flex flex-col items-center justify-center">
-            <Link to="/Profil1" className=" mb-10 hover:text-teal-500">Data Pribadi</Link>
-            <Link to="/Profil2" className=" mb-10 hover:text-teal-500">Riwayat Perjalanan</Link> {/* Tambahkan navigasi ke Profil2 */}
-            <Link to="#" className="font-bold hover:text-teal-500">Saldo</Link> {/* Tambahkan navigasi ke Profil3 */}
+            <Link to="/Profil1" className="mb-10 hover:text-teal-500">
+              Data Pribadi
+            </Link>
+            <Link to="/Profil2" className="mb-10 hover:text-teal-500">
+              Riwayat Perjalanan
+            </Link>
+            <Link to="#" className="font-bold hover:text-teal-500">
+              Saldo
+            </Link>
           </nav>
           <img
             src="images/Trash 2.png"
@@ -69,50 +122,76 @@ export default function ProfilePage() {
           />
         </aside>
 
-        {/* Profile Form */}
+        {/* Main Content */}
         <main className="flex-1 bg-gray-100 p-8 relative space-y-6">
-  {/* Saldo Card */}
-  <div className="flex items-center justify-between bg-[#D7F9E6] rounded-lg p-4 shadow-md">
-    {/* Icon dan Info Saldo */}
-    <div className="flex items-center">
-      <img
-        src="images/saldo.png"
-        alt="Wallet Icon"
-        className="w-16 h-16 mr-4"
-      />
-      <div>
-        <h3 className="text-lg font-bold text-black">Saldo</h3>
-        <p className="text-lg font-semibold text-gray-700">Rp. 50.000.000,00</p>
-      </div>
-    </div>
+          {/* Saldo Card */}
+          <div className="flex items-center justify-between bg-[#D7F9E6] rounded-lg p-4 shadow-md">
+            <div className="flex items-center">
+              <GiWallet className="w-16 h-16 text-[#55AD9B] mr-4" />
+              <div>
+                <h3 className="text-lg font-bold text-black">Saldo</h3>
+                <p className="text-lg font-semibold text-gray-700">
+                  Rp. {saldo.toLocaleString("id-ID")}
+                </p>
+              </div>
+            </div>
 
-    {/* Tombol Tambah */}
-    <button className="bg-[#55AD9B] w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#46a088]">
-      <span className="text-white text-2xl font-bold">+</span>
-    </button>
-  </div>
+            {/* Tombol Tambah */}
+            <button
+              onClick={handleAddSaldoClick}
+              className="bg-transparent w-10 h-10 rounded-full flex items-center justify-center hover:text-[#46a088]"
+            >
+              <FaPlusCircle className="text-[#55AD9B] text-4xl hover:text-[#46a088]" />
+            </button>
+          </div>
 
-  {/* Tabel Transaksi */}
-  <div className="bg-[#D7F9E6] rounded-lg p-6 shadow-md">
-    <table className="w-full text-left">
-      <thead>
-        <tr className="text-lg font-semibold text-black">
-          <th className="pb-4">Saldo Awal</th>
-          <th className="pb-4">Biaya</th>
-          <th className="pb-4">Saldo Akhir</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="text-lg font-medium text-gray-700">
-          <td className="py-2">Rp. 50.000.000,00</td>
-          <td className="py-2 text-red-500">-Rp. 1.000.000,00</td>
-          <td className="py-2">Rp. 49.000.000,00</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</main>
+          {/* Input Saldo Baru */}
+          {isAdding && (
+            <div className="flex items-center mt-4">
+              <input
+                type="number"
+                placeholder="Masukkan Nominal"
+                value={inputSaldo}
+                onChange={(e) => setInputSaldo(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg w-full"
+              />
+              <button
+                onClick={handleSaveSaldo}
+                className="ml-4 bg-[#55AD9B] text-white p-2 rounded-lg hover:bg-[#46a088]"
+              >
+                Simpan
+              </button>
+            </div>
+          )}
 
+          {/* Tabel Transaksi */}
+          <div className="bg-[#D7F9E6] rounded-lg p-6 shadow-md">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="text-lg font-semibold text-black">
+                  <th className="pb-4">Saldo Awal</th>
+                  <th className="pb-4">Biaya</th>
+                  <th className="pb-4">Saldo Akhir</th>
+                </tr>
+              </thead>
+              <tbody>
+                {history.map((item, index) => (
+                  <tr key={index} className="text-lg font-medium text-gray-700">
+                    <td className="py-2">
+                      Rp. {item.saldoAwal.toLocaleString("id-ID")}
+                    </td>
+                    <td className="py-2 text-green-500">
+                      Rp. {item.biaya.toLocaleString("id-ID")}
+                    </td>
+                    <td className="py-2">
+                      Rp. {item.saldoAkhir.toLocaleString("id-ID")}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </main>
       </div>
     </div>
   );

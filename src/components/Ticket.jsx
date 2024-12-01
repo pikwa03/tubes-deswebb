@@ -1,93 +1,119 @@
 import { useNavigate } from 'react-router-dom';
-
 import React from "react";
 
 const Ticket = () => {
-  const navigate = useNavigate(); // Pastikan ini ada di dalam komponen
+  const navigate = useNavigate();
 
-  const handleGoBack = () => {
-    navigate(-1); // Navigasi kembali ke halaman sebelumnya
+  const ticketData = {
+    trainName: "Matahari Timur (06)",
+    trainClass: "Ekonomi",
+    origin: "Stasiun Kereta Kencana, Balikpapan",
+    destination: "Stasiun Istimewah, IKN",
+    departureTime: "09.00",
+    departureDate: "13 Okt 2024",
+    arrivalTime: "11.00",
+    duration: "2 j 0m",
+    passengers: [
+      {
+        name: "Dilla Ayu Puspitasari",
+        type: "Dewasa",
+        idType: "KTP",
+        idNumber: "123456789112365998",
+        seat: "Ekonomi / Kursi 2B",
+      }
+    ],
+    bookingCode: "ZIR341G",
+    orderNumber: "673491340",
+  };
+
+  const handleSaveTicket = () => {
+    const existingHistory = JSON.parse(localStorage.getItem('travelHistory')) || [];
+    localStorage.setItem('travelHistory', JSON.stringify([...existingHistory, ticketData]));
+    navigate('/Profil2');
   };
 
   return (
-    <div className="ticket w-[1120px] h-[650px] mx-auto border border-gray-300 rounded-lg font-sans bg-light-green p-8 mt-8 my-18">
+    <div className="ticket max-w-4xl mx-auto border border-gray-300 rounded-lg bg-white shadow-lg p-6 mt-8">
       {/* Ticket Header */}
-      <div className="ticket-header text-center border-b border-gray-300 pb-4 mb-4">
-        <img
-          src="/images/logo.png"
-          alt="CHU CHU RAWR Logo"
-          className="ticket-logo w-[80px] h-auto mb-2"
-        />
-        <h1 className="text-xl text-start font-poppins font-bold text-[30px]">CHU CHU RAWR</h1>
-        <p className="text-sm text-start font-poppins font-medium text-[24px]">E-tiket (Kereta Pergi)</p>
+      <div className="ticket-header flex items-center justify-between mb-6">
+        <img src="/images/logo.png" alt="CHU CHU RAWR Logo" className="w-24 h-auto" />
+        <div>
+          <h1 className="text-2xl font-bold">CHU CHU RAWR</h1>
+          <p className="text-lg font-medium">E-Tiket Perjalanan</p>
+        </div>
       </div>
 
-      {/* Ticket Body */}
-      <div className="ticket-body text-sm">
-        {/* Train Info */}
-        <div className="train-info mb-4">
-          <h2 className="text-lg font-poppins">Matahari Timur (06)</h2>
-          <p className="economy-class text-gray-500 font-poppins my-1">Ekonomi</p>
-          <div className="train-timing flex justify-between mb-2">
-            <div className="text-center">
-              <p className="time font-poppins text-base">09.00</p>
-              <p className="date  font-poppinstext-xs">13 Okt</p>
-            </div>
-            <div className="travel-time">
-              <p className="text-sm font-poppins">2 j 0m</p>
-            </div>
-            <div className="text-center">
-              <p className="time text-base font-poppins">11.00</p>
-              <p className="date text-xs font-poppins">13 Okt</p>
-            </div>
+      {/* Train Information */}
+      <div className="ticket-info mb-6">
+        <h2 className="text-xl font-bold mb-2">{ticketData.trainName}</h2>
+        <p className="text-gray-600">{ticketData.trainClass}</p>
+        <div className="grid grid-cols-3 gap-4 mt-4">
+          <div className="text-left">
+            <p className="text-sm text-gray-600">Keberangkatan</p>
+            <h3 className="text-lg font-semibold">{ticketData.origin}</h3>
+            <p>{ticketData.departureDate} - {ticketData.departureTime}</p>
           </div>
-          <div className="stations flex justify-between text-sm font-poppins text-gray-700">
-            <p>Stasiun Kereta Kencana</p>
-            <p>Stasiun Istimewah</p>
+          <div className="text-center">
+            <p className="text-sm text-gray-600">Durasi</p>
+            <p className="text-lg font-semibold">{ticketData.duration}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-600">Kedatangan</p>
+            <h3 className="text-lg font-semibold">{ticketData.destination}</h3>
+            <p>{ticketData.departureDate} - {ticketData.arrivalTime}</p>
           </div>
         </div>
+      </div>
 
-        {/* Booking Info */}
-        <div className="booking-info mb-4">
-          <div className="booking-code border-dashed border-gray-300 p-4 mb-4 text-center">
-            <p className="text-sm font-poppins">Kode Booking</p>
-            <h3 className="text-base font-poppins text-gray-700">ZIR341G</h3>
-            <p className="text-sm font-poppins">No. Pesanan CHU CHU RAWR</p>
-            <p className="text-sm font-poppins">673491340</p>
-          </div>
-          <div className="important-info">
-            <p className="text-sm font-poppins">HAL PENTING TERKAIT KEBERANGKATAN</p>
-            <ul className="list-none p-0 m-0">
-              <li className="mb-2 font-poppins">Gunakan E-tiket untuk cetak boarding pass di stasiun, dari 7 x 24 jam sebelum keberangkatan.</li>
-              <li className="mb-2 font-poppins">Untuk boarding, bawa tanda pengenal resmi sesuai yang digunakan pada saat pemesanan.</li>
-              <li className="mb-2 font-poppins">Tiba di stasiun setidaknya <strong>60 menit</strong> sebelum keberangkatan.</li>
-            </ul>
-          </div>
-        </div>
+      {/* Booking Information */}
+      <div className="booking-info bg-gray-100 p-4 rounded-lg shadow-sm mb-6">
+        <p className="text-sm text-gray-600">Kode Booking</p>
+        <h3 className="text-xl font-bold">{ticketData.bookingCode}</h3>
+        <p className="text-sm text-gray-600 mt-2">No. Pesanan</p>
+        <p className="text-lg">{ticketData.orderNumber}</p>
+      </div>
 
-        {/* Passenger Info */}
-        <div className="passenger-info">
-          <table className="w-full border-collapse text-xs">
-            <thead>
-              <tr>
-                <th className="border border-gray-300 p-2 text-center font-poppins bg-gray-100">NO</th>
-                <th className="border border-gray-300 p-2 text-center font-poppins bg-gray-100">Penumpang</th>
-                <th className="border border-gray-300 p-2 text-center font-poppins bg-gray-100">Jenis</th>
-                <th className="border border-gray-300 p-2 text-center font-poppins bg-gray-100">Tanda Pengenal & Nomor</th>
-                <th className="border border-gray-300 p-2 text-center font-poppins bg-gray-100">Nomor Kursi</th>
+      {/* Passenger Information */}
+      <div className="passenger-info">
+        <h3 className="text-lg font-semibold mb-4">Informasi Penumpang</h3>
+        <table className="w-full border-collapse border border-gray-300">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="border border-gray-300 p-2">No</th>
+              <th className="border border-gray-300 p-2">Nama</th>
+              <th className="border border-gray-300 p-2">Jenis</th>
+              <th className="border border-gray-300 p-2">Tanda Pengenal</th>
+              <th className="border border-gray-300 p-2">Nomor Kursi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ticketData.passengers.map((passenger, index) => (
+              <tr key={index}>
+                <td className="border border-gray-300 p-2 text-center">{index + 1}</td>
+                <td className="border border-gray-300 p-2 text-center">{passenger.name}</td>
+                <td className="border border-gray-300 p-2 text-center">{passenger.type}</td>
+                <td className="border border-gray-300 p-2 text-center">{passenger.idType} - {passenger.idNumber}</td>
+                <td className="border border-gray-300 p-2 text-center">{passenger.seat}</td>
               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border border-gray-300 p-2 font-poppins text-center">1</td>
-                <td className="border border-gray-300 p-2 font-poppins text-center">Dilla Ayu Puspitasari</td>
-                <td className="border border-gray-300 p-2 font-poppins text-center">Dewasa</td>
-                <td className="border border-gray-300 p-2 font-poppins text-center">KTP - 123456789112365998</td>
-                <td className="border border-gray-300 p-2 font-poppins text-center">Ekonomi / Kursi 2B</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-between mt-8">
+        <button
+          onClick={() => navigate(-1)}
+          className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
+        >
+          Kembali
+        </button>
+        <button
+          onClick={handleSaveTicket}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Simpan Tiket
+        </button>
       </div>
     </div>
   );
