@@ -33,6 +33,16 @@ export default function ProfilePage2() {
     localStorage.setItem('travelHistory', JSON.stringify(updatedHistory)); // Simpan riwayat perjalanan ke localStorage
   };
 
+  // Fungsi untuk menghapus riwayat perjalanan
+  const handleDeleteHistory = (index) => {
+    const confirmed = window.confirm('Apakah Anda yakin ingin menghapus riwayat perjalanan ini?');
+    if (confirmed) {
+      const updatedHistory = travelHistory.filter((_, i) => i !== index); // Menghapus riwayat berdasarkan index
+      setTravelHistory(updatedHistory); // Update state riwayat perjalanan
+      localStorage.setItem('travelHistory', JSON.stringify(updatedHistory)); // Simpan perubahan ke localStorage
+    }
+  };
+
   const handleDeleteAccount = () => {
     const confirmed = window.confirm('Apakah Anda yakin ingin menghapus akun?');
     if (confirmed) {
@@ -73,7 +83,7 @@ export default function ProfilePage2() {
           <img
             src="/images/Trash 2.png"
             alt="Hapus Akun"
-            className="absolute bottom-20 left-1/2 transform -translate-x-1/2 p-2 bg-white rounded-lg w-[49px] h-[49px] drop-shadow cursor-pointer"
+            className="absolute bottom-68 left-1/2 transform -translate-x-1/2 p-2 bg-white rounded-lg w-[49px] h-[49px] drop-shadow cursor-pointer"
             onClick={handleDeleteAccount}
           />
         </aside>
@@ -86,7 +96,7 @@ export default function ProfilePage2() {
               travelHistory.map((travel, index) => (
                 <div
                   key={index}
-                  className="flex items-center bg-[#D7F9E6] rounded-lg p-4 shadow-md"
+                  className="flex items-center bg-text-gray rounded-lg p-4 shadow-md"
                 >
                   {/* Icon */}
                   <img src={historyImages[index]} alt="Train Icon" className="w-16 h-16 mr-4" />
@@ -104,6 +114,14 @@ export default function ProfilePage2() {
                   <p className="text-sm text-gray-700 font-medium">
                     {travel.date}
                   </p>
+
+                  {/* Tombol Hapus Riwayat */}
+                  <button
+                    className="ml-4 text-red-500 hover:text-red-700"
+                    onClick={() => handleDeleteHistory(index)}
+                  >
+                    Hapus
+                  </button>
                 </div>
               ))
             ) : (
