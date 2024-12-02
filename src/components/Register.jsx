@@ -25,7 +25,10 @@ function Register() {
       setErrorMessage(''); // Reset pesan error jika data valid
       // Proses pendaftaran di sini
        // Lakukan proses login atau arahkan ke dashboard
-       window.location.href = '/Dashboard';
+       // Simpan data email dan password ke Local Storage
+        const email = document.getElementById('email').value;
+        localStorage.setItem('userData', JSON.stringify({ email, password }));
+       window.location.href = '/Login';
     }
   };
 

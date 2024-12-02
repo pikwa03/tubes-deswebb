@@ -17,9 +17,15 @@ function Login() {
     if (!email || !password) {
       setError('Data belum lengkap! Mohon isi email dan password.');
     } else {
-      setError('');
-      // Lakukan proses login atau arahkan ke dashboard
-      window.location.href = '/Dashboard'; // Ganti dengan URL tujuan yang sesuai
+      // Ambil data dari Local Storage
+      const storedData = JSON.parse(localStorage.getItem('userData'));
+  
+      if (storedData && storedData.email === email && storedData.password === password) {
+        setError('');
+        window.location.href = '/Dashboard'; // Arahkan ke halaman Dashboard
+      } else {
+        setError('Email atau password salah!');
+      }
     }
   };
 
