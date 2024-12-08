@@ -106,11 +106,11 @@ function PaymentDetails() {
     <div className="flex flex-col items-center bg-white min-h-screen font-poppins">
       <Header />
       <div className="relative flex justify-center w-full mt-16 px-2 sm:px-2">
-        <h2 className="absolute text-center text-lg sm:text-xl font-bold text-black bg-[#95D2B3] w-full max-w-[800px] h-[60px] top-[-30px] pt-4 rounded-lg">
+        <h2 className="absolute text-center text-lg sm:text-xl font-bold text-black bg-green-custom w-full max-w-[800px] h-[60px] top-[-30px] pt-4 rounded-lg">
           Detail Pembayaran
         </h2>
 
-        <div className="w-full max-w-[800px] bg-[#D8EFD3] p-6 sm:p-8 shadow-lg rounded-lg">
+        <div className="w-full max-w-[800px] bg-light-green p-6 sm:p-8 shadow-lg rounded-lg">
           {/* Displaying Passenger Name and Contact */}
           <div className="flex justify-between mb-2">
             <div className="text-base sm:text-lg text-black">
@@ -143,7 +143,7 @@ function PaymentDetails() {
             <span>Saldo</span>
             <Link
               to="/Profil3"
-              className="flex items-center space-x-2 bg-[#7AC2B4] text-black px-4 py-1 rounded-full w-auto border border-black"
+              className="flex items-center space-x-2 bg-hijau text-black px-4 py-1 rounded-full w-auto border border-black"
             >
               <MdAccountBalanceWallet className="w-5 h-5 text-black" />
               <span>{`Rp ${balance.toLocaleString("id-ID")}`}</span>
@@ -151,7 +151,7 @@ function PaymentDetails() {
           </div>
 
           <button
-            className="flex items-center justify-center text-base sm:text-lg space-x-2 bg-[#7AC2B4] text-white px-6 py-2 rounded-full w-auto mt-8 ml-auto border border-black"
+            className="flex items-center justify-center text-base sm:text-lg space-x-2 bg-hijau text-white px-6 py-2 rounded-full w-auto mt-8 ml-auto border border-black"
             onClick={handlePayment}
           >
             Bayar
@@ -162,11 +162,11 @@ function PaymentDetails() {
       {/* Popup untuk gagal atau berhasil */}
       {isPaymentFailed && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#F8D7DA] p-6 sm:p-8 rounded-lg text-center max-w-sm w-[90%] sm:w-[600px] shadow-lg">
+          <div className="bg-green p-6 sm:p-8 rounded-lg text-center max-w-sm w-[90%] sm:w-[600px] shadow-lg">
             <h3 className="text-lg sm:text-2xl font-semibold text-black leading-normal">
               Pembayaran Gagal
             </h3>
-            <ImCross className="text-[#55AD9B] h-16 sm:h-24 w-16 sm:w-24 mx-auto mt-4" />
+            <ImCross className="text-red h-16 sm:h-24 w-16 sm:w-24 mx-auto mt-4" />
             <p className="mt-4 text-sm sm:text-lg text-black leading-normal">
               Saldo tidak mencukupi
             </p>
